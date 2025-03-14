@@ -1,24 +1,30 @@
-
-import React, { useState, useEffect } from 'react';
-import { Button } from './ui/button';
+import React, { useState, useEffect } from "react";
+import { Button } from "./ui/button";
 
 const LifecycleDemo: React.FC = () => {
   const [mounted, setMounted] = useState(true);
   const [count, setCount] = useState(0);
   const [logs, setLogs] = useState<string[]>([]);
+  const [consoleLogs, setConsoleLogs] = useState<string[]>([]);
 
   const addLog = (message: string) => {
-    setLogs(prevLogs => [message, ...prevLogs].slice(0, 8));
+    setLogs((prevLogs) => [message, ...prevLogs].slice(0, 8)); // Keep only the last 8 logs
+  };
+
+  const addConsoleLog = (message: string) => {
+    setConsoleLogs((prevLogs) => [message, ...prevLogs].slice(0, 8)); // Keep only the last 8 logs
+    console.log(message); // Log to the actual browser console
   };
 
   const resetDemo = () => {
     setLogs([]);
+    setConsoleLogs([]);
     setCount(0);
     setMounted(true);
   };
 
   const toggleMount = () => {
-    setMounted(prev => !prev);
+    setMounted((prev) => !prev);
   };
 
   return (
@@ -31,41 +37,71 @@ const LifecycleDemo: React.FC = () => {
           </Button>
         </div>
       </div>
-      
+
       <div className="p-6 grid grid-cols-1 md:grid-cols-2 gap-6">
         <div className="space-y-4">
           <div className="flex space-x-3">
-            <Button onClick={toggleMount} variant={mounted ? "destructive" : "default"}>
+            <Button
+              onClick={toggleMount}
+              variant={mounted ? "destructive" : "default"}
+            >
               {mounted ? "Unmount Component" : "Mount Component"}
             </Button>
-            
+
             {mounted && (
-              <Button onClick={() => setCount(c => c + 1)} variant="outline">
+              <Button onClick={() => setCount((c) => c + 1)} variant="outline">
                 Update State: {count}
               </Button>
             )}
           </div>
-          
-          {mounted && <DemoComponent count={count} addLog={addLog} />}
-          
+
+          {mounted && (
+            <DemoComponent
+              count={count}
+              addLog={addLog}
+              addConsoleLog={addConsoleLog}
+            />
+          )}
+
           {!mounted && (
             <div className="h-40 flex items-center justify-center border-2 border-dashed border-gray-300 rounded-lg">
               <p className="text-gray-500">Component is unmounted</p>
             </div>
           )}
         </div>
-        
-        <div className="bg-gray-900 text-gray-100 p-4 rounded-lg h-64 overflow-auto font-mono text-sm">
-          <div className="mb-2 pb-2 border-b border-gray-700 text-gray-400">Component Lifecycle Logs:</div>
-          {logs.length === 0 ? (
-            <div className="text-gray-500 italic">No events logged yet...</div>
-          ) : (
-            logs.map((log, index) => (
-              <div key={index} className="py-1">
-                <span className="text-green-400">&gt;</span> {log}
+
+        <div className="space-y-6">
+          <div className="bg-gray-900 text-gray-100 p-4 rounded-lg h-64 overflow-auto font-mono text-sm">
+            <div className="mb-2 pb-2 border-b border-gray-700 text-gray-400">
+              Component Lifecycle Logs:
+            </div>
+            {logs.length === 0 ? (
+              <div className="text-gray-500 italic">
+                No events logged yet...
               </div>
-            ))
-          )}
+            ) : (
+              logs.map((log, index) => (
+                <div key={index} className="py-1">
+                  <span className="text-green-400">&gt;</span> {log}
+                </div>
+              ))
+            )}
+          </div>
+
+          <div className="bg-gray-900 text-gray-100 p-4 rounded-lg h-64 overflow-auto font-mono text-sm">
+            <div className="mb-2 pb-2 border-b border-gray-700 text-gray-400">
+              Console Logs:
+            </div>
+            {consoleLogs.length === 0 ? (
+              <div className="text-gray-500 italic">No console logs yet...</div>
+            ) : (
+              consoleLogs.map((log, index) => (
+                <div key={index} className="py-1">
+                  <span className="text-green-400">&gt;</span> {log}
+                </div>
+              ))
+            )}
+          </div>
         </div>
       </div>
     </div>
@@ -73,21 +109,32 @@ const LifecycleDemo: React.FC = () => {
 };
 
 // This is the component that demonstrates lifecycle
-const DemoComponent: React.FC<{ count: number; addLog: (message: string) => void }> = ({ count, addLog }) => {
+const DemoComponent: React.FC<{
+  count: number;
+  addLog: (message: string) => void;
+  addConsoleLog: (message: string) => void;
+}> = ({ count, addLog, addConsoleLog }) => {
+  // Mounting and Unmounting
   useEffect(() => {
-    addLog("🟢 Component MOUNTED");
-    
+    addLog(`🟢 [${new Date().toLocaleTimeString()}] Component MOUNTED`);
+    addConsoleLog("Component mounted");
+
     return () => {
-      addLog("🔴 Component UNMOUNTED");
+      addLog(`🔴 [${new Date().toLocaleTimeString()}] Component UNMOUNTED`);
+      addConsoleLog("Component will unmount");
     };
-  }, [addLog]);
-  
+  }, [addLog, addConsoleLog]);
+
+  // Updating
   useEffect(() => {
     if (count > 0) {
-      addLog(`🔄 Component UPDATED: count = ${count}`);
+      addLog(
+        `🔄 [${new Date().toLocaleTimeString()}] Component UPDATED: count = ${count}`
+      );
+      addConsoleLog(`Count updated to: ${count}`);
     }
-  }, [count, addLog]);
-  
+  }, [count, addLog, addConsoleLog]);
+
   return (
     <div className="bg-white shadow-md rounded-lg p-4 border">
       <h4 className="font-medium mb-2">Live Component</h4>

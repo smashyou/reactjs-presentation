@@ -68,7 +68,7 @@ export const slides: SlideData[] = [
         <div>
           <h3 className="text-xl font-medium mb-4">JSX Syntax</h3>
           <p className="leading-relaxed mb-4">
-            JSX is a syntax extension that lets you write HTML-like CodeBlock in
+            JSX is a syntax extension that lets you write HTML-like code in
             JavaScript:
           </p>
           <CodeBlock
@@ -446,10 +446,10 @@ function Button({ variant = "primary", size = "medium", children, onClick }) {
 
         <div>
           <h3 className="text-xl font-medium mb-4 text-red-600">
-            Dangerous CodeBlock Example
+            Dangerous Code Example
           </h3>
           <CodeBlock
-            code={`// ⚠️ VULNERABLE CodeBlock - DON'T USE THIS ⚠️
+            code={`// ⚠️ VULNERABLE CODE - DON'T USE THIS ⚠️
 function CommentDisplay({ userComment }) {
   return (
     <div 
@@ -512,7 +512,7 @@ function CommentDisplay({ userComment }) {
 
         <div>
           <h3 className="text-xl font-medium mb-4 text-green-600">
-            Secure CodeBlock Example
+            Secure Code Example
           </h3>
           <CodeBlock
             code={`// Safe user content display

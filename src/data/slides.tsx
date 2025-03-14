@@ -340,8 +340,8 @@ function App() {
           <div className="glass-card p-6 rounded-xl">
             <h3 className="text-lg font-semibold mb-3">Developer Experience</h3>
             <p>
-              Component-based architecture makes CodeBlockBlock more
-              predictable, testable, and easier to debug.
+              Component-based architecture makes code more predictable,
+              testable, and easier to debug.
             </p>
           </div>
           <div className="glass-card p-6 rounded-xl">

@@ -690,7 +690,7 @@ async function fetchUserData(userId) {
             <li className="flex items-start">
               <span className="text-green-500 mr-3">✓</span>
               <span>
-                <strong>Declarative approach</strong> making CodeBlock more
+                <strong>Declarative approach</strong> making code more
                 predictable and easier to debug
               </span>
             </li>

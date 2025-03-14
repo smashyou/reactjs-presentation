@@ -1,0 +1,200 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 0 0% 100%;
+    --foreground: 222.2 84% 4.9%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 222.2 84% 4.9%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 222.2 84% 4.9%;
+
+    --primary: 210 100% 50%;
+    --primary-foreground: 210 40% 98%;
+
+    --secondary: 210 40% 96.1%;
+    --secondary-foreground: 222.2 47.4% 11.2%;
+
+    --muted: 210 40% 96.1%;
+    --muted-foreground: 215.4 16.3% 46.9%;
+
+    --accent: 210 40% 96.1%;
+    --accent-foreground: 222.2 47.4% 11.2%;
+
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 210 40% 98%;
+
+    --border: 214.3 31.8% 91.4%;
+    --input: 214.3 31.8% 91.4%;
+    --ring: 222.2 84% 4.9%;
+
+    --radius: 0.75rem;
+  }
+
+  * {
+    @apply border-border selection:bg-primary/20 selection:text-primary;
+  }
+
+  body {
+    @apply bg-background text-foreground antialiased overflow-x-hidden;
+    font-feature-settings: "ss01", "ss02", "cv01", "cv02", "cv03";
+  }
+
+  html {
+    @apply scroll-smooth;
+  }
+}
+
+@layer utilities {
+  .glass-card {
+    @apply bg-white/90 backdrop-blur-sm border border-white/40 shadow-lg;
+  }
+
+  .text-balance {
+    text-wrap: balance;
+  }
+}
+
+/* Code syntax highlighting - VSCode-like theme customization */
+pre {
+  @apply p-4 rounded-lg overflow-auto text-sm my-4;
+  background-color: #1e1e1e !important; /* VS Code dark background */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+pre[class*="language-"] {
+  background-color: #1e1e1e !important;
+}
+
+code {
+  @apply font-mono;
+}
+
+.token.comment {
+  color: #6a9955 !important; /* VSCode comment color */
+}
+
+.token.string {
+  color: #ce9178 !important; /* VSCode string color */
+}
+
+.token.keyword {
+  color: #569cd6 !important; /* VSCode keyword color */
+}
+
+.token.function {
+  color: #dcdcaa !important; /* VSCode function color */
+}
+
+.token.boolean,
+.token.number {
+  color: #b5cea8 !important; /* VSCode number color */
+}
+
+.token.operator {
+  color: #d4d4d4 !important; /* VSCode operator color */
+}
+
+.token.punctuation {
+  color: #d4d4d4 !important; /* VSCode punctuation color */
+}
+
+.token.property,
+.token.class-name {
+  color: #4ec9b0 !important; /* VSCode class/property color */
+}
+
+.token.tag {
+  color: #569cd6 !important; /* VSCode tag color */
+}
+
+.token.attr-name {
+  color: #9cdcfe !important; /* VSCode attribute name */
+}
+
+.token.attr-value {
+  color: #ce9178 !important; /* VSCode attribute value */
+}
+
+/* Custom styles for presentation */
+.slide-container {
+  @apply min-h-screen w-full overflow-hidden flex flex-col;
+  padding-top: 2rem; /* Add padding to account for the navigation now at the top */
+}
+
+.slide {
+  @apply w-full h-full opacity-0 absolute top-0 left-0 transition-all duration-500 flex flex-col justify-center px-6 lg:px-16;
+  margin-top: 1rem; /* Add margin to account for the navigation now at the top */
+}
+
+.slide.active {
+  @apply opacity-100 z-10 relative;
+}
+
+.slide-transition-enter {
+  @apply opacity-0 transform translate-x-full;
+}
+
+.slide-transition-enter-active {
+  @apply opacity-100 transform translate-x-0 transition-all duration-500;
+}
+
+.slide-transition-exit {
+  @apply opacity-100 transform translate-x-0;
+}
+
+.slide-transition-exit-active {
+  @apply opacity-0 transform -translate-x-full transition-all duration-500;
+}
+
+.slideshow-container {
+  margin-top: 50px; /* Adjust as needed */
+}
+
+.spacing span {
+  margin-right: 10px;
+}
+
+/* React logo animation */
+.react-logo {
+  animation: react-spin 10s linear infinite;
+}
+
+@keyframes react-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Animation utilities */
+@keyframes fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-in {
+  animation: fade-in 0.4s ease-out forwards;
+}
+
+/* Line numbers for code blocks */
+.line-numbers .line-numbers-rows {
+  border-right: 1px solid #3c3c3c;
+  padding-right: 5px;
+}
+
+.line-numbers-rows > span:before {
+  color: #6a9955;
+}

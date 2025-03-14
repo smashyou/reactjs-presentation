@@ -419,8 +419,8 @@ function Button({ variant = "primary", size = "medium", children, onClick }) {
               Malicious Dependencies
             </h3>
             <p>
-              Third-party packages may contain vulnerable or malicious
-              CodeBlockBlock that can compromise your application.
+              Third-party packages may contain vulnerable or malicious code that
+              can compromise your application.
             </p>
           </div>
         </div>
